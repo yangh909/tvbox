@@ -2,7 +2,7 @@
     "urls": [
         {
             "name": "📺 直播源（可选）",
-            "url": "你的直播源地址"
+            "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/refs/heads/master/output/result.txt"
         }
     ],
     "storeHouse": [
@@ -29,7 +29,7 @@
     ]
     "parses": [
         {
-            "name": "通用解析",
+            "name": "大通仓",
             "url": "https://jx.qqzi.cn/jx.php?url="
         }
     ]
