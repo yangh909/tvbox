@@ -8,17 +8,21 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: 拉取最新 TVBOX 仓库地址
         run: |
           mkdir -p dist
           curl -L -s "https://github.com/tvbox-me/tvbox-repo/raw/main/repo.json" -o dist/tvbox.json
-          echo "✅ 更新完成"
+          echo "✅ TVBOX 地址拉取完成"
 
-      - name: 提交更新
+      - name: 提交并推送更新
         uses: EndBug/add-and-commit@v9
         with:
-          message: "自动更新 TVBOX 地址"
+          message: "🤖 自动更新 TVBOX 地址"
           add: "dist/*"
