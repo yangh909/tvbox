@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 生成 db.json
+      - name: 生成标准多仓 db.json
         run: |
           mkdir -p dist
           cat > dist/db.json << 'EOF'
@@ -54,7 +54,7 @@ jobs:
         }
     ]
 }
-          EOF
+EOF
 
       - name: 提交更新
         uses: EndBug/add-and-commit@v9
