@@ -1,28 +1,75 @@
-name: TVBOX 地址自动同步
-
+name: 生成 iptvindex 标准格式
 on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
-      - name: 拉取最新 TVBOX 仓库地址
+      - name: 生成标准 db.json 格式
         run: |
           mkdir -p dist
-          curl -L -s "https://github.com/tvbox-me/tvbox-repo/raw/main/repo.json" -o dist/tvbox.json
-          echo "✅ TVBOX 地址拉取完成"
+          cat > dist/db.json << 'EOF'
+          {
+            "urls": [
+              {
+                "name": "优质线路",
+                "url": "https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"
+              }
+            ],
+            "sites": [
+              {
+                "key": "bilibili",
+                "name": "哔哩哔哩",
+                "type": 3,
+                "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/哔哩哔哩.js",
+                "searchable": 1,
+                "quickSearch": 1
+              },
+              {
+                "key": "douban",
+                "name": "豆瓣推荐",
+                "type": 3,
+                "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/豆瓣推荐.js",
+                "searchable": 1,
+                "quickSearch": 1
+              }
+            ],
+            "parses": [
+              {
+                "name": "通用解析",
+                "url": "https://jx.qqzi.cn/jx.php?url="
+              }
+            ]
+          }
+          EOF
 
-      - name: 提交并推送更新
+      - name: 拉取最新影视源并合并
+        run: |
+          curl -L -s "https://raw.githubusercontent.com/FongMi/TV/release/config.json" | jq '.sites' > /tmp/sites.json
+          curl -L -s "https://raw.githubusercontent.com/FongMi/TV/release/config.json" | jq '.parses' > /tmp/parses.json
+          jq -n \
+            --argjson sites "$(cat /tmp/sites.json)" \
+            --argjson parses "$(cat /tmp/parses.json)" \
+            '{
+              "urls": [
+                {
+                  "name": "自动更新TVBOX源",
+                  "url": "https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"
+                }
+              ],
+              "sites": $sites,
+              "parses": $parses
+            }' > dist/db.json
+
+      - name: 提交更新
         uses: EndBug/add-and-commit@v9
         with:
-          message: "🤖 自动更新 TVBOX 地址"
+          message: "✅ 自动更新 db.json (iptvindex 格式)"
           add: "dist/*"
