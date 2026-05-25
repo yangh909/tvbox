@@ -20,7 +20,7 @@ jobs:
           # 写入标准 JSON 格式
           cat > dist/db.json << 'EOF'
           {
-              "urls": [{"name":"自动更新源","url":"https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"}],
+              "urls": [{"name":"自动更新源","url":"https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/tvbox.json"}],
               "sites": [
                   {"key":"bilibili","name":"哔哩哔哩","type":3,"api":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/哔哩哔哩.js","searchable":1,"quickSearch":1},
                   {"key":"wanxiang","name":"万向影视","type":3,"api":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/万向影视.js","searchable":1,"quickSearch":1}
@@ -32,7 +32,7 @@ jobs:
       - name: 提交更新到仓库
         uses: EndBug/add-and-commit@v9
         with:
-          message: "✅ 自动更新 db.json"
+          message: "✅ 自动更新 tvbox.json"
           add: "dist/db.json"  # 精确指定文件，更安全
           committer_name: GitHub Actions
           committer_email: actions@github.com
