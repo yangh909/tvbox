@@ -14,52 +14,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 生成标准多仓 db.json
+      - name: 生成多仓配置文件
         run: |
           mkdir -p dist
-          cat > dist/db.json << 'EOF'
-{
-    "urls": [
-        {
-            "name": "📺 直播源",
-            "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/refs/heads/master/output/result.txt"
-        }
-    ],
+          echo '{
+    "urls": [{"name":"📺 直播源","url":"https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}],
     "storeHouse": [
-        {
-            "sourceName": "🐱 肥猫仓库",
-            "sourceUrl": "http://肥猫.live"
-        },
-        {
-            "sourceName": "🍚 饭太硬仓库",
-            "sourceUrl": "http://饭太硬.top/tv"
-        },
-        {
-            "sourceName": "👻 游魂仓库",
-            "sourceUrl": "https://www.iyouhun.com/tv/0"
-        },
-        {
-            "sourceName": "🎵 欧歌多仓",
-            "sourceUrl": "https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"
-        },
-        {
-            "sourceName": "🎬 俊哥仓库",
-            "sourceUrl": "http://home.jundie.top:81/top98.json"
-        }
+        {"sourceName":"🐱 肥猫仓库","sourceUrl":"http://肥猫.live"},
+        {"sourceName":"🍚 饭太硬仓库","sourceUrl":"http://饭太硬.top/tv"},
+        {"sourceName":"👻 游魂仓库","sourceUrl":"https://www.iyouhun.com/tv/0"},
+        {"sourceName":"🎵 欧歌多仓","sourceUrl":"https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"},
+        {"sourceName":"🎬 俊哥仓库","sourceUrl":"http://home.jundie.top:81/top98.json"}
     ],
-    "parses": [
-        {
-            "name": "大通解析",
-            "url": "https://jx.qqzi.cn/jx.php?url="
-        }
-    ]
-}
-EOF
+    "parses": [{"name":"大通解析","url":"https://jx.qqzi.cn/jx.php?url="}]
+}' > dist/db.json
 
-      - name: 提交更新
+      - name: 提交更新到仓库
         uses: EndBug/add-and-commit@v9
         with:
-          message: "✅ 自动更新多仓 db.json"
-          add: "dist/db.json"
+          message: "✅ 自动更新多仓配置"
+          add: dist/db.json
           committer_name: GitHub Actions
           committer_email: actions@github.com
