@@ -1,7 +1,7 @@
 name: 生成 IPTVINDEX 多仓 db.json
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,22 +14,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 生成多仓配置文件
+      - name: 生成多仓配置
         run: |
           mkdir -p dist
           echo '{
-    "urls": [{"name":"📺 直播源","url":"https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}],
-    "storeHouse": [
-        {"sourceName":"🐱 肥猫仓库","sourceUrl":"http://肥猫.live"},
-        {"sourceName":"🍚 饭太硬仓库","sourceUrl":"http://饭太硬.top/tv"},
-        {"sourceName":"👻 游魂仓库","sourceUrl":"https://www.iyouhun.com/tv/0"},
-        {"sourceName":"🎵 欧歌多仓","sourceUrl":"https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"},
-        {"sourceName":"🎬 俊哥仓库","sourceUrl":"http://home.jundie.top:81/top98.json"}
-    ],
-    "parses": [{"name":"大通解析","url":"https://jx.qqzi.cn/jx.php?url="}]
-}' > dist/db.json
+            "urls": [{"name":"📺 直播源","url":"https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}],
+            "storeHouse": [
+              {"sourceName":"🐱 肥猫仓库","sourceUrl":"http://肥猫.live"},
+              {"sourceName":"🍚 饭太硬仓库","sourceUrl":"http://饭太硬.top/tv"},
+              {"sourceName":"👻 游魂仓库","sourceUrl":"https://www.iyouhun.com/tv/0"},
+              {"sourceName":"🎵 欧歌多仓","sourceUrl":"https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"},
+              {"sourceName":"🎬 俊哥仓库","sourceUrl":"http://home.jundie.top:81/top98.json"}
+            ],
+            "parses": [{"name":"大通解析","url":"https://jx.qqzi.cn/jx.php?url="}]
+          }' > dist/db.json
 
-      - name: 提交更新到仓库
+      - name: 提交更新
         uses: EndBug/add-and-commit@v9
         with:
           message: "✅ 自动更新多仓配置"
