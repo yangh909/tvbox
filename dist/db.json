@@ -1,0 +1,8 @@
+{
+    "urls": [{"name":"自动更新源","url":"https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"}],
+    "sites": [
+        {"key":"bilibili","name":"哔哩哔哩","type":3,"api":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/哔哩哔哩.js","searchable":1,"quickSearch":1},
+        {"key":"wanxiang","name":"万向影视","type":3,"api":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/万向影视.js","searchable":1,"quickSearch":1}
+    ],
+    "parses": [{"name":"通用解析","url":"https://jx.qqzi.cn/jx.php?url="}]
+}
