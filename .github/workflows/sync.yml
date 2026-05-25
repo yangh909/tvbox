@@ -1,4 +1,4 @@
-name: 生成 iptvindex 标准格式
+name: 生成 IPTVINDEX 标准格式 db.json
 on:
   schedule:
     - cron: '0 */6 * * *'
@@ -12,64 +12,58 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 生成标准 db.json 格式
+      - name: 生成标准 db.json (iptvindex 格式)
         run: |
           mkdir -p dist
           cat > dist/db.json << 'EOF'
-          {
-            "urls": [
-              {
-                "name": "优质线路",
-                "url": "https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"
-              }
-            ],
-            "sites": [
-              {
-                "key": "bilibili",
-                "name": "哔哩哔哩",
-                "type": 3,
-                "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/哔哩哔哩.js",
-                "searchable": 1,
-                "quickSearch": 1
-              },
-              {
-                "key": "douban",
-                "name": "豆瓣推荐",
-                "type": 3,
-                "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/豆瓣推荐.js",
-                "searchable": 1,
-                "quickSearch": 1
-              }
-            ],
-            "parses": [
-              {
-                "name": "通用解析",
-                "url": "https://jx.qqzi.cn/jx.php?url="
-              }
-            ]
-          }
-          EOF
-
-      - name: 拉取最新影视源并合并
-        run: |
-          curl -L -s "https://raw.githubusercontent.com/FongMi/TV/release/config.json" | jq '.sites' > /tmp/sites.json
-          curl -L -s "https://raw.githubusercontent.com/FongMi/TV/release/config.json" | jq '.parses' > /tmp/parses.json
-          jq -n \
-            --argjson sites "$(cat /tmp/sites.json)" \
-            --argjson parses "$(cat /tmp/parses.json)" \
-            '{
-              "urls": [
-                {
-                  "name": "自动更新TVBOX源",
-                  "url": "https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"
-                }
-              ],
-              "sites": $sites,
-              "parses": $parses
-            }' > dist/db.json
+{
+  "urls": [
+    {
+      "name": "自动更新线路",
+      "url": "https://ghproxy.net/raw.githubusercontent.com/yangh909/tvbox-sync/main/dist/db.json"
+    }
+  ],
+  "sites": [
+    {
+      "key": "cibn",
+      "name": "CIBN 高清",
+      "type": 3,
+      "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/CIBN高清.js",
+      "searchable": 1,
+      "quickSearch": 1
+    },
+    {
+      "key": "bilibili",
+      "name": "哔哩哔哩",
+      "type": 3,
+      "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/哔哩哔哩.js",
+      "searchable": 1,
+      "quickSearch": 1
+    },
+    {
+      "key": "wanxiang",
+      "name": "万向影视",
+      "type": 3,
+      "api": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/万向影视.js",
+      "searchable": 1,
+      "quickSearch": 1
+    }
+  ],
+  "parses": [
+    {
+      "name": "通用解析1",
+      "url": "https://jx.qqzi.cn/jx.php?url="
+    },
+    {
+      "name": "通用解析2",
+      "url": "https://jx.ggocs.com/?url="
+    }
+  ]
+}
+EOF
 
       - name: 提交更新
         uses: EndBug/add-and-commit@v9
         with:
-          message: "✅ 自动更新 db.json (iptvindex 格式)"
+          message: "✅ 自动更新 IPTVINDEX 格式 db.json"
           add: "dist/*"
