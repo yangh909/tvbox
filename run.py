@@ -2,20 +2,17 @@ import requests
 import json
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 # 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-# ==============================================
-# 固定直播源（放最后）
-# ==============================================
-live = [
+# ===================== 固定直播源 =====================
+live_sources = [
     {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
 ]
 
-# ==============================================
-# 从文件读取要爬的地址（自动读，不用改代码）
-# ==============================================
+# ===================== 从文件读取抓取列表 =====================
 fetch_urls = []
 try:
     with open("source_list.txt", "r", encoding="utf-8") as f:
@@ -24,20 +21,21 @@ try:
             if line and line.startswith("http"):
                 fetch_urls.append(line)
 except:
-    print("读取 source_list.txt 失败")
+    print("⚠️ 读取 source_list.txt 失败")
 
-# ==============================================
-# 开始爬取 + 合并 + 去重
-# ==============================================
-all_items = []
+# ===================== 全局配置 =====================
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+}
+timeout = 10
+max_workers = 10
 url_set = set()
-headers = {"User-Agent": "Mozilla/5.0"}
+all_items = []
 
-# 爬取所有远程仓库
+# ===================== 抓取远程仓库 =====================
 for fetch_url in fetch_urls:
     try:
-        print(f"正在抓取：{fetch_url}")
-        resp = requests.get(fetch_url, timeout=10, headers=headers)
+        resp = requests.get(fetch_url, headers=headers, timeout=timeout)
         data = resp.json()
 
         items = []
@@ -53,46 +51,38 @@ for fetch_url in fetch_urls:
         for item in items:
             name = item.get("name", "").strip()
             url = item.get("url", "").strip()
-            if name and url and url.startswith("http"):
-                if url not in url_set:
-                    url_set.add(url)
-                    all_items.append({"name": name, "url": url})
+            if name and url and url.startswith("http") and url not in url_set:
+                url_set.add(url)
+                all_items.append({"name": name, "url": url})
+
+        print(f"✅ 抓取成功: {fetch_url}")
     except Exception as e:
-        print(f"抓取失败：{fetch_url}")
+        print(f"❌ 抓取失败: {fetch_url}")
 
-# ==============================================
-# 验证地址是否可用
-# ==============================================
-valid_list = []
-timeout = 8
-
-print("\n开始验证地址可用性...")
-for item in all_items:
-    name = item["name"]
-    url = item["url"]
+# ===================== 多线程验证存活（超快） =====================
+def check(item):
     try:
-        res = requests.get(url, timeout=timeout, headers=headers)
+        res = requests.get(item["url"], headers=headers, timeout=5)
         if res.status_code == 200:
-            valid_list.append(item)
-            print(f"✅ 有效：{name}")
-        else:
-            print(f"❌ 失效：{name}")
+            print(f"✅ {item['name']}")
+            return item
     except:
-        print(f"❌ 失效：{name}")
-    time.sleep(0.2)
+        print(f"❌ {item['name']}")
+    return None
 
-# ==============================================
-# 直播源放在最后
-# ==============================================
-# for item in live:
-#     valid_list.append(item)
+valid_list = []
+with ThreadPoolExecutor(max_workers=max_workers) as executor:
+    results = executor.map(check, all_items)
+    for res in results:
+        if res:
+            valid_list.append(res)
 
-# ==============================================
-# 生成最终影视仓文件
-# ==============================================
+# ===================== 直播源放在最后 =====================
+valid_list.extend(live_sources)
+
+# ===================== 输出最终文件 =====================
 result = {"urls": valid_list}
-
 with open("dist/db.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 
-print(f"\n✅ 生成完成！有效仓库总数：{len(valid_list)}")
+print(f"\n🎉 生成完成！有效仓库：{len(valid_list)} 个")
