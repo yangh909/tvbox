@@ -243,9 +243,11 @@
     {
       "name": "😵巧技接口〔多条线路〕",
       "url": "https://agit.ai/relax/adcc/raw/branch/master/tvbox.json"
-    },
+    }
+  ],
+  "lives": [
     {
-      "name": "📺 自用直播源",
+      "name": "自用直播",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"
     }
   ]
