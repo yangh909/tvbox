@@ -1,62 +1,19 @@
-import requests
-import json
-import time
-import os
+name: Sync
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
-os.makedirs("dist", exist_ok=True)
-
-# =============== 配置区 ===============
-# 1. 你的直播源（固定写入）
-LIVE_SOURCES = [
-    {"name": "📺 高清直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
-]
-
-# 2. 要自动抓取的影视仓合集地址
-FETCH_URL = "https://raw.githubusercontent.com/ruoisnow/TVBox/main/0801.json"
-
-# 3. 超时
-TIMEOUT = 10
-HEADERS = {"User-Agent": "Mozilla/5.0"}
-# =====================================
-
-valid = []
-url_set = set()
-
-# 加入直播源
-for item in LIVE_SOURCES:
-    u = item["url"]
-    if u not in url_set:
-        url_set.add(u)
-        valid.append(item)
-
-# 抓取影视仓
-try:
-    res = requests.get(FETCH_URL, timeout=TIMEOUT, headers=HEADERS)
-    data = res.json()
-    if "urls" in data:
-        for item in data["urls"]:
-            name = item.get("name", "")
-            url = item.get("url", "")
-            if name and url and url not in url_set:
-                url_set.add(url)
-                valid.append({"name": name, "url": url})
-except:
-    print("Fetch failed")
-
-# 校验存活
-final = []
-for item in valid:
-    try:
-        r = requests.get(item["url"], timeout=5, headers=HEADERS)
-        if r.status_code == 200:
-            final.append(item)
-    except:
-        pass
-    time.sleep(0.2)
-
-# 输出标准格式
-output = {"urls": final}
-with open("dist/db.json", "w", encoding="utf-8") as f:
-    json.dump(output, f, ensure_ascii=False, indent=2)
-
-print(f"Done! Valid: {len(final)}")
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install requests
+      - run: python3 run.py
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: Update
+          add: dist/db.json
