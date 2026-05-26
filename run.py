@@ -6,7 +6,12 @@ import time
 # 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-
+# ==============================================
+# 固定直播源（你自己的）
+# ==============================================
+live = [
+    {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
+]
 
 # ==============================================
 # 要爬取的远程仓库合集（自动抓取里面的所有仓）
@@ -58,12 +63,7 @@ for fetch_url in fetch_urls:
     except Exception as e:
         print(f"抓取失败：{fetch_url}")
 
-# ==============================================
-# 固定直播源（你自己的）
-# ==============================================
-live = [
-    {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
-]
+
 
 # ==============================================
 # 验证地址是否可用
