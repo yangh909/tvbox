@@ -7,9 +7,12 @@ from concurrent.futures import ThreadPoolExecutor
 # 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-# ===================== 固定直播源（强制保留，不验证） =====================
+# ===================== 正确格式的直播源（lives 标准格式） =====================
 live_sources = [
-    {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
+    {
+        "name": "自用直播",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"
+    }
 ]
 
 # ===================== 从文件读取抓取列表 =====================
@@ -28,7 +31,7 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
 timeout = 10
-max_workers = 10
+max_workers = 5
 url_set = set()
 all_items = []
 
@@ -59,15 +62,14 @@ for fetch_url in fetch_urls:
     except Exception as e:
         print(f"❌ 抓取失败: {fetch_url}")
 
-# ===================== 多线程验证仓库（只验证仓库，不验证直播） =====================
+# ===================== 多线程验证仓库 =====================
 def check(item):
     try:
         res = requests.get(item["url"], headers=headers, timeout=5)
         if res.status_code == 200:
-            print(f"✅ {item['name']}")
             return item
     except:
-        print(f"❌ {item['name']}")
+        pass
     return None
 
 valid_list = []
@@ -77,12 +79,13 @@ with ThreadPoolExecutor(max_workers=max_workers) as executor:
         if res:
             valid_list.append(res)
 
-# ===================== ✅ 强制加入直播源（永远保留，不验证！） =====================
-valid_list += live_sources
+# ===================== 输出：仓库 + 直播 分开存储（影视仓标准格式） =====================
+result = {
+    "urls": valid_list,    # 影视仓库
+    "lives": live_sources  # 直播源（关键！必须写在这里）
+}
 
-# ===================== 输出最终文件 =====================
-result = {"urls": valid_list}
 with open("dist/db.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 
-print(f"\n🎉 生成完成！有效仓库：{len(valid_list)} 个")
+print(f"\n🎉 生成完成！有效仓库：{len(valid_list)} 个，直播源：{len(live_sources)} 个")
