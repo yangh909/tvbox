@@ -21,6 +21,10 @@
       "url": "http://116.196.116.76/tv"
     },
     {
+      "name": "影视仓",
+      "url": "http://www.影视仓.com"
+    },
+    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -239,6 +243,10 @@
     {
       "name": "😵巧技接口〔多条线路〕",
       "url": "https://agit.ai/relax/adcc/raw/branch/master/tvbox.json"
+    },
+    {
+      "name": "📺 自用直播源",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"
     }
   ]
 }
