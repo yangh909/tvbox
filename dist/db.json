@@ -1,1 +1,28 @@
-{"urls":[{"name":"260517","url":"http://www.饭太硬.cc/tv"},{"name":"王二小","url":"https://9280.kstore.vip/newwex.json"},{"name":"肥猫","url":"http://肥猫.live"},{"name":"游魂","url":"https://www.iyouhun.com/tv/0"},{"name":"欧歌","url":"https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"}]}
+{
+  "urls": [
+    {
+      "name": "📺 直播源",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"
+    },
+    {
+      "name": "饭太硬",
+      "url": "http://www.饭太硬.cc/tv"
+    },
+    {
+      "name": "肥猫",
+      "url": "http://肥猫.live"
+    },
+    {
+      "name": "游魂",
+      "url": "https://www.iyouhun.com/tv/0"
+    },
+    {
+      "name": "欧歌",
+      "url": "https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"
+    },
+    {
+      "name": "俊哥",
+      "url": "http://home.jundie.top:81/top98.json"
+    }
+  ]
+}
