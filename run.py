@@ -1,29 +1,95 @@
 import requests
 import json
 import os
+import time
+
+# 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-# ============= 可自己修改 =============
-
-
-TV_SOURCES = [
-    {"name": "饭太硬", "url": "http://www.饭太硬.cc/tv"},
-    {"name": "肥猫", "url": "http://肥猫.live"},
-    {"name": "游魂", "url": "https://www.iyouhun.com/tv/0"},
-    {"name": "欧歌", "url": "https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"},
-    {"name": "俊哥", "url": "http://home.jundie.top:81/top98.json"}
+# ==============================================
+# 固定直播源（你自己的）
+# ==============================================
+live = [
+    {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
 ]
 
-LIVE_SOURCES = [
-    {"name": "📺 直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
+# ==============================================
+# 要爬取的远程仓库合集（自动抓取里面的所有仓）
+# ==============================================
+fetch_urls = [
+    "https://raw.githubusercontent.com/ruoisnow/TVBox/main/0801.json",
+    "https://raw.githubusercontent.com/gaotianliuyun/gao/master/ds2.json",
+    "https://raw.githubusercontent.com/jianmorendan/my/main/duo.json",
+    "https://raw.githubusercontent.com/tv-player/tvbox/main/123.json"
 ]
-# ======================================
 
-final = LIVE_SOURCES + TV_SOURCES
+# ==============================================
+# 开始爬取 + 合并 + 去重
+# ==============================================
+all_items = []
+url_set = set()
+headers = {"User-Agent": "Mozilla/5.0"}
 
-output = {"urls": final}
+# 加入直播源
+for item in live:
+    u = item["url"]
+    if u not in url_set:
+        url_set.add(u)
+        all_items.append(item)
+
+# 爬取所有远程仓库
+for fetch_url in fetch_urls:
+    try:
+        print(f"正在抓取：{fetch_url}")
+        resp = requests.get(fetch_url, timeout=10, headers=headers)
+        data = resp.json()
+
+        # 自动识别 urls / stores / lives 三种常见格式
+        items = []
+        if "urls" in data:
+            items = data["urls"]
+        elif "stores" in data:
+            items = data["stores"]
+        elif "lives" in data:
+            items = data["lives"]
+
+        for item in items:
+            name = item.get("name", "").strip()
+            url = item.get("url", "").strip()
+            if name and url and url.startswith("http"):
+                if url not in url_set:
+                    url_set.add(url)
+                    all_items.append({"name": name, "url": url})
+    except Exception as e:
+        print(f"抓取失败：{fetch_url}")
+
+# ==============================================
+# 验证地址是否可用
+# ==============================================
+valid_list = []
+timeout = 8
+
+print("\n开始验证地址可用性...")
+for item in all_items:
+    name = item["name"]
+    url = item["url"]
+    try:
+        res = requests.get(url, timeout=timeout, headers=headers)
+        if res.status_code == 200:
+            valid_list.append(item)
+            print(f"✅ 有效：{name}")
+        else:
+            print(f"❌ 失效：{name}")
+    except:
+        print(f"❌ 失效：{name}")
+    time.sleep(0.2)
+
+# ==============================================
+# 生成影视仓标准格式
+# ==============================================
+result = {"urls": valid_list}
 
 with open("dist/db.json", "w", encoding="utf-8") as f:
-    json.dump(output, f, ensure_ascii=False, indent=2)
+    json.dump(result, f, ensure_ascii=False, indent=2)
 
-print("生成完成")
+print(f"\n✅ 生成完成！有效仓库总数：{len(valid_list)}")
