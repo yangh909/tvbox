@@ -4,10 +4,9 @@ import os
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-# 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-# ===================== 正确格式的直播源（lives 标准格式） =====================
+# ===================== 你的直播源（写在这里） =====================
 live_sources = [
     {
         "name": "自用直播",
@@ -15,7 +14,7 @@ live_sources = [
     }
 ]
 
-# ===================== 从文件读取抓取列表 =====================
+# ===================== 从 source_list.txt 读取要爬的仓库 =====================
 fetch_urls = []
 try:
     with open("source_list.txt", "r", encoding="utf-8") as f:
@@ -27,9 +26,7 @@ except:
     print("⚠️ 读取 source_list.txt 失败")
 
 # ===================== 全局配置 =====================
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-}
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 timeout = 10
 max_workers = 5
 url_set = set()
@@ -40,29 +37,24 @@ for fetch_url in fetch_urls:
     try:
         resp = requests.get(fetch_url, headers=headers, timeout=timeout)
         data = resp.json()
-
         items = []
         if "urls" in data:
             items = data["urls"]
         elif "stores" in data:
             items = data["stores"]
-        elif "lives" in data:
-            items = data["lives"]
         elif isinstance(data, list):
             items = data
-
         for item in items:
             name = item.get("name", "").strip()
             url = item.get("url", "").strip()
             if name and url and url.startswith("http") and url not in url_set:
                 url_set.add(url)
                 all_items.append({"name": name, "url": url})
-
         print(f"✅ 抓取成功: {fetch_url}")
     except Exception as e:
         print(f"❌ 抓取失败: {fetch_url}")
 
-# ===================== 多线程验证仓库 =====================
+# ===================== 验证仓库有效性 =====================
 def check(item):
     try:
         res = requests.get(item["url"], headers=headers, timeout=5)
@@ -79,13 +71,13 @@ with ThreadPoolExecutor(max_workers=max_workers) as executor:
         if res:
             valid_list.append(res)
 
-# ===================== 输出：仓库 + 直播 分开存储（影视仓标准格式） =====================
+# ===================== 生成影视仓标准格式 =====================
 result = {
     "urls": valid_list,    # 影视仓库
-    "lives": live_sources  # 直播源（关键！必须写在这里）
+    "lives": live_sources  # 直播源（关键字段！）
 }
 
 with open("dist/db.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 
-print(f"\n🎉 生成完成！有效仓库：{len(valid_list)} 个，直播源：{len(live_sources)} 个")
+print(f"\n🎉 生成完成！仓库：{len(valid_list)} 个，直播：{len(live_sources)} 个")
