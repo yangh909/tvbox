@@ -133,10 +133,6 @@
       "url": "https://clun.top/box.json"
     },
     {
-      "name": "钵钵鸡",
-      "url": "http://47.96.82.41:3/"
-    },
-    {
       "name": "小脑斧",
       "url": "https://6492.kstore.space/xnf/xnf.json"
     },
@@ -169,16 +165,16 @@
       "url": "https://3043.kstore.space/bhvip/bh/box.json"
     },
     {
-      "name": "软件小哥哥",
-      "url": "http://47.96.82.41:5188/"
-    },
-    {
       "name": "胜寒",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/hanhan8127/TVBox/main/hanXC.json"
     },
     {
       "name": "🚀动漫频道",
       "url": "https://www.yingm.cc/dm/dm.json"
+    },
+    {
+      "name": "🚀欧歌线路",
+      "url": "http://tv.nxog.top/m/111.php?ou=%E6%AC%A7%E6%AD%8C&mz=index2&xl=&jar=index2"
     },
     {
       "name": "🚀欧歌线路备用",
@@ -247,7 +243,7 @@
   ],
   "lives": [
     {
-      "name": "自用直播",
+      "name": "📺 自用直播源",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"
     }
   ]
