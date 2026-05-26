@@ -17,10 +17,10 @@ live = [
 # 要爬取的远程仓库合集（自动抓取里面的所有仓）
 # ==============================================
 fetch_urls = [
-    "https://raw.githubusercontent.com/ruoisnow/TVBox/main/0801.json",
-    "https://raw.githubusercontent.com/gaotianliuyun/gao/master/ds2.json",
-    "https://raw.githubusercontent.com/jianmorendan/my/main/duo.json",
-    "https://raw.githubusercontent.com/tv-player/tvbox/main/123.json"
+    "https://iptvindex.com/db.json",
+    "https://jihulab.com/z-blog/xh2/-/raw/main/t3.json",
+    "https://jihulab.com/duomv/apps/-/raw/main/duo.json",
+    "https://jihulab.com/ygbh1/box/-/raw/main/dcang/dc2.json"
 ]
 
 # ==============================================
