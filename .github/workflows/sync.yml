@@ -1,77 +1,62 @@
-name: 抓取开源源文件+自动校验
-on:
-  schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
-
-jobs:
-  run:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: 安装依赖
-        run: python3 -m pip install requests --quiet
-
-      - name: 抓取开源源并校验
-        run: |
-          mkdir -p dist
-          python3 << 'PYTHON_CODE'
 import requests
 import json
 import time
+import os
 
-# 填写多个开源 raw 地址（批量抓取）
-RAW_LIST = [
-    "https://iptvindex.com/db.json",
-    "https://jihulab.com/z-blog/xh2/-/raw/main/t3.json"
-    "https://jihulab.com/duomv/apps/-/raw/main/duo.json"
+os.makedirs("dist", exist_ok=True)
+
+# =============== 配置区 ===============
+# 1. 你的直播源（固定写入）
+LIVE_SOURCES = [
+    {"name": "📺 高清直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
 ]
-HEADERS = {"User-Agent": "Mozilla/5.0"}
-TIMEOUT = 8
-url_dup = set()
-total = []
 
-# 遍历多个开源源文件
-for raw_url in RAW_LIST:
-    try:
-        r = requests.get(raw_url, headers=HEADERS, timeout=TIMEOUT)
-        data = r.json()
-        # 适配常见格式：urls / stores 数组
-        if "urls" in data:
-            for item in data["urls"]:
-                n = item.get("name","")
-                u = item.get("url","")
-                if n and u and u not in url_dup:
-                    url_dup.add(u)
-                    total.append({"name":n,"url":u})
-    except:
-        print(f"抓取失败: {raw_url}")
+# 2. 要自动抓取的影视仓合集地址
+FETCH_URL = "https://raw.githubusercontent.com/ruoisnow/TVBox/main/0801.json"
+
+# 3. 超时
+TIMEOUT = 10
+HEADERS = {"User-Agent": "Mozilla/5.0"}
+# =====================================
+
+valid = []
+url_set = set()
+
+# 加入直播源
+for item in LIVE_SOURCES:
+    u = item["url"]
+    if u not in url_set:
+        url_set.add(u)
+        valid.append(item)
+
+# 抓取影视仓
+try:
+    res = requests.get(FETCH_URL, timeout=TIMEOUT, headers=HEADERS)
+    data = res.json()
+    if "urls" in data:
+        for item in data["urls"]:
+            name = item.get("name", "")
+            url = item.get("url", "")
+            if name and url and url not in url_set:
+                url_set.add(url)
+                valid.append({"name": name, "url": url})
+except:
+    print("Fetch failed")
 
 # 校验存活
-valid = []
-for d in total:
+final = []
+for item in valid:
     try:
-        res = requests.get(d["url"], headers=HEADERS, timeout=TIMEOUT)
-        if res.status_code == 200:
-            valid.append(d)
-            print(f"✅ {d['name']}")
+        r = requests.get(item["url"], timeout=5, headers=HEADERS)
+        if r.status_code == 200:
+            final.append(item)
     except:
-        print(f"❌ {d['name']}")
+        pass
     time.sleep(0.2)
 
-# 生成最终文件
-out = {"urls": valid}
-with open("dist/db.json","w",encoding="utf-8") as f:
-    json.dump(out, f, ensure_ascii=False, indent=2)
+# 输出标准格式
+output = {"urls": final}
+with open("dist/db.json", "w", encoding="utf-8") as f:
+    json.dump(output, f, ensure_ascii=False, indent=2)
 
-print(f"\n有效仓库总数: {len(valid)}")
-PYTHON_CODE
-
-      - name: 提交文件
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "自动同步开源影视仓地址"
-          add: dist/db.json
+print(f"Done! Valid: {len(final)}")
