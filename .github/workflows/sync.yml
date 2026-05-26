@@ -1,28 +1,77 @@
-name: Build IPTVINDEX Format db.json
+name: 抓取开源源文件+自动校验
 on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Generate db.json
+      - name: 安装依赖
+        run: python3 -m pip install requests --quiet
+
+      - name: 抓取开源源并校验
         run: |
           mkdir -p dist
-          echo '{"urls":[{"name":"260517","url":"http://www.饭太硬.cc/tv"},{"name":"王二小","url":"https://9280.kstore.vip/newwex.json"},{"name":"肥猫","url":"http://肥猫.live"},{"name":"游魂","url":"https://www.iyouhun.com/tv/0"},{"name":"欧歌","url":"https://m.nxog.top/nxog/ou1.php?url=http://tv.nxog.top&b=欧歌"}]}' > dist/db.json
+          python3 << 'PYTHON_CODE'
+import requests
+import json
+import time
 
-      - name: Commit Update
+# 填写多个开源 raw 地址（批量抓取）
+RAW_LIST = [
+    "https://iptvindex.com/db.json",
+    "https://jihulab.com/z-blog/xh2/-/raw/main/t3.json"
+    "https://jihulab.com/duomv/apps/-/raw/main/duo.json"
+]
+HEADERS = {"User-Agent": "Mozilla/5.0"}
+TIMEOUT = 8
+url_dup = set()
+total = []
+
+# 遍历多个开源源文件
+for raw_url in RAW_LIST:
+    try:
+        r = requests.get(raw_url, headers=HEADERS, timeout=TIMEOUT)
+        data = r.json()
+        # 适配常见格式：urls / stores 数组
+        if "urls" in data:
+            for item in data["urls"]:
+                n = item.get("name","")
+                u = item.get("url","")
+                if n and u and u not in url_dup:
+                    url_dup.add(u)
+                    total.append({"name":n,"url":u})
+    except:
+        print(f"抓取失败: {raw_url}")
+
+# 校验存活
+valid = []
+for d in total:
+    try:
+        res = requests.get(d["url"], headers=HEADERS, timeout=TIMEOUT)
+        if res.status_code == 200:
+            valid.append(d)
+            print(f"✅ {d['name']}")
+    except:
+        print(f"❌ {d['name']}")
+    time.sleep(0.2)
+
+# 生成最终文件
+out = {"urls": valid}
+with open("dist/db.json","w",encoding="utf-8") as f:
+    json.dump(out, f, ensure_ascii=False, indent=2)
+
+print(f"\n有效仓库总数: {len(valid)}")
+PYTHON_CODE
+
+      - name: 提交文件
         uses: EndBug/add-and-commit@v9
         with:
-          message: Update db.json
+          message: "自动同步开源影视仓地址"
           add: dist/db.json
-          committer_name: GitHub Actions
-          committer_email: actions@github.com
