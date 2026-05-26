@@ -7,21 +7,24 @@ import time
 os.makedirs("dist", exist_ok=True)
 
 # ==============================================
-# 固定直播源（你自己的）
+# 固定直播源（放最后）
 # ==============================================
 live = [
     {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
 ]
 
 # ==============================================
-# 要爬取的远程仓库合集（自动抓取里面的所有仓）
+# 从文件读取要爬的地址（自动读，不用改代码）
 # ==============================================
-fetch_urls = [
-    "https://iptvindex.com/db.json",
-    "https://jihulab.com/z-blog/xh2/-/raw/main/t3.json",
-    "https://jihulab.com/duomv/apps/-/raw/main/duo.json",
-    "https://jihulab.com/ygbh1/box/-/raw/main/dcang/dc2.json"
-]
+fetch_urls = []
+try:
+    with open("source_list.txt", "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and line.startswith("http"):
+                fetch_urls.append(line)
+except:
+    print("读取 source_list.txt 失败")
 
 # ==============================================
 # 开始爬取 + 合并 + 去重
@@ -30,13 +33,6 @@ all_items = []
 url_set = set()
 headers = {"User-Agent": "Mozilla/5.0"}
 
-# 加入直播源
-for item in live:
-    u = item["url"]
-    if u not in url_set:
-        url_set.add(u)
-        all_items.append(item)
-
 # 爬取所有远程仓库
 for fetch_url in fetch_urls:
     try:
@@ -44,7 +40,6 @@ for fetch_url in fetch_urls:
         resp = requests.get(fetch_url, timeout=10, headers=headers)
         data = resp.json()
 
-        # 自动识别 urls / stores / lives 三种常见格式
         items = []
         if "urls" in data:
             items = data["urls"]
@@ -52,6 +47,8 @@ for fetch_url in fetch_urls:
             items = data["stores"]
         elif "lives" in data:
             items = data["lives"]
+        elif isinstance(data, list):
+            items = data
 
         for item in items:
             name = item.get("name", "").strip()
@@ -62,8 +59,6 @@ for fetch_url in fetch_urls:
                     all_items.append({"name": name, "url": url})
     except Exception as e:
         print(f"抓取失败：{fetch_url}")
-
-
 
 # ==============================================
 # 验证地址是否可用
@@ -87,7 +82,13 @@ for item in all_items:
     time.sleep(0.2)
 
 # ==============================================
-# 生成影视仓标准格式
+# 直播源放在最后
+# ==============================================
+# for item in live:
+#     valid_list.append(item)
+
+# ==============================================
+# 生成最终影视仓文件
 # ==============================================
 result = {"urls": valid_list}
 
