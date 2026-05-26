@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 # 创建输出目录
 os.makedirs("dist", exist_ok=True)
 
-# ===================== 固定直播源 =====================
+# ===================== 固定直播源（强制保留，不验证） =====================
 live_sources = [
     {"name": "📺 自用直播源", "url": "https://ghfast.top/https://raw.githubusercontent.com/yangh909/iptv-api/master/output/result.txt"}
 ]
@@ -59,7 +59,7 @@ for fetch_url in fetch_urls:
     except Exception as e:
         print(f"❌ 抓取失败: {fetch_url}")
 
-# ===================== 多线程验证存活（超快） =====================
+# ===================== 多线程验证仓库（只验证仓库，不验证直播） =====================
 def check(item):
     try:
         res = requests.get(item["url"], headers=headers, timeout=5)
@@ -77,8 +77,8 @@ with ThreadPoolExecutor(max_workers=max_workers) as executor:
         if res:
             valid_list.append(res)
 
-# ===================== 直播源放在最后 =====================
-valid_list.extend(live_sources)
+# ===================== ✅ 强制加入直播源（永远保留，不验证！） =====================
+valid_list += live_sources
 
 # ===================== 输出最终文件 =====================
 result = {"urls": valid_list}
