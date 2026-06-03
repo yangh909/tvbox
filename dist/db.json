@@ -21,10 +21,6 @@
       "url": "http://116.196.116.76/tv"
     },
     {
-      "name": "影视仓",
-      "url": "http://www.影视仓.com"
-    },
-    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -35,10 +31,6 @@
     {
       "name": "EasyTV少儿",
       "url": "https://jihulab.com/ymz1231/xymz/-/raw/main/ymshaoer"
-    },
-    {
-      "name": "starlink",
-      "url": "http://124.223.214.31:8/api.json"
     },
     {
       "name": "电影天堂",
@@ -63,6 +55,10 @@
     {
       "name": "D佬",
       "url": "http://rihou.cc:555/nzk/nzk0722.json"
+    },
+    {
+      "name": "欧歌",
+      "url": "http://tv.nxog.top/m/"
     },
     {
       "name": "嗷呜弹幕",
@@ -123,6 +119,10 @@
     {
       "name": "钵钵鸡",
       "url": "http://47.96.82.41:3/"
+    },
+    {
+      "name": "小脑斧",
+      "url": "https://6492.kstore.space/xnf/xnf.json"
     },
     {
       "name": "高天",
@@ -195,10 +195,6 @@
     {
       "name": "🚀香雅情线路",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/gaotianliuyun/gao/master/XYQ.json"
-    },
-    {
-      "name": "🚀荷城茶秀",
-      "url": "http://rihou.cc:88/荷城茶秀"
     },
     {
       "name": "🐹南风线路",
