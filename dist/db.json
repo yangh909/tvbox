@@ -21,6 +21,10 @@
       "url": "http://116.196.116.76/tv"
     },
     {
+      "name": "影视仓",
+      "url": "http://www.影视仓.com"
+    },
+    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -31,6 +35,10 @@
     {
       "name": "EasyTV少儿",
       "url": "https://jihulab.com/ymz1231/xymz/-/raw/main/ymshaoer"
+    },
+    {
+      "name": "starlink",
+      "url": "http://124.223.214.31:8/api.json"
     },
     {
       "name": "电影天堂",
@@ -121,20 +129,12 @@
       "url": "http://47.96.82.41:3/"
     },
     {
-      "name": "小脑斧",
-      "url": "https://6492.kstore.space/xnf/xnf.json"
-    },
-    {
       "name": "高天",
       "url": "https://ghproxy.net/https://raw.githubusercontent.com/debaters6/XYQ/master/0821.json"
     },
     {
       "name": "蜗牛",
       "url": "https://tv.xn--11x555b.top/svip"
-    },
-    {
-      "name": "菜妮丝2",
-      "url": "https://tv.xn--yhqu5zs87a.top"
     },
     {
       "name": "香雅情",
