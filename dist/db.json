@@ -21,6 +21,10 @@
       "url": "http://116.196.116.76/tv"
     },
     {
+      "name": "影视仓",
+      "url": "http://www.影视仓.com"
+    },
+    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -55,10 +59,6 @@
     {
       "name": "liucn",
       "url": "https://raw.liucn.cc/box/m.json"
-    },
-    {
-      "name": "D佬",
-      "url": "http://rihou.cc:555/nzk/nzk0722.json"
     },
     {
       "name": "欧歌",
