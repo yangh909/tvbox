@@ -9,20 +9,12 @@
       "url": "https://9280.kstore.vip/newwex.json"
     },
     {
-      "name": "肥猫",
-      "url": "http://肥猫.net/tv"
-    },
-    {
       "name": "星河",
       "url": "http://116.196.116.76/stv"
     },
     {
       "name": "星河4K",
       "url": "http://116.196.116.76/tv"
-    },
-    {
-      "name": "影视仓",
-      "url": "http://www.影视仓.com"
     },
     {
       "name": "影视仓-备",
@@ -59,6 +51,10 @@
     {
       "name": "liucn",
       "url": "https://raw.liucn.cc/box/m.json"
+    },
+    {
+      "name": "D佬",
+      "url": "http://rihou.cc:555/nzk/nzk0722.json"
     },
     {
       "name": "欧歌",
@@ -129,10 +125,6 @@
       "url": "http://47.96.82.41:3/"
     },
     {
-      "name": "小脑斧",
-      "url": "https://6492.kstore.space/xnf/xnf.json"
-    },
-    {
       "name": "高天",
       "url": "https://ghproxy.net/https://raw.githubusercontent.com/debaters6/XYQ/master/0821.json"
     },
@@ -175,10 +167,6 @@
     {
       "name": "🚀动漫频道",
       "url": "https://www.yingm.cc/dm/dm.json"
-    },
-    {
-      "name": "🚀欧歌线路",
-      "url": "http://tv.nxog.top/m/111.php?ou=%E6%AC%A7%E6%AD%8C&mz=index2&xl=&jar=index2"
     },
     {
       "name": "🚀欧歌线路备用",
