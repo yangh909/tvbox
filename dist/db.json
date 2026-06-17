@@ -1,16 +1,8 @@
 {
   "urls": [
     {
-      "name": "260526",
-      "url": "http://www.饭太硬.cc/tv"
-    },
-    {
       "name": "王二小",
       "url": "https://9280.kstore.vip/newwex.json"
-    },
-    {
-      "name": "肥猫",
-      "url": "http://肥猫.net/tv"
     },
     {
       "name": "星河",
@@ -43,6 +35,10 @@
     {
       "name": "电影天堂",
       "url": "http://47.96.82.41:5188/config.json"
+    },
+    {
+      "name": "软件小哥哥",
+      "url": "http://47.96.82.41:5188/svip/svip.json"
     },
     {
       "name": "俊哥",
@@ -171,6 +167,10 @@
     {
       "name": "胜寒",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/hanhan8127/TVBox/main/hanXC.json"
+    },
+    {
+      "name": "小虎斑",
+      "url": "http://hb.小虎斑.site:25252/仅供测试"
     },
     {
       "name": "🚀动漫频道",
