@@ -9,6 +9,10 @@
       "url": "https://9280.kstore.vip/newwex.json"
     },
     {
+      "name": "肥猫",
+      "url": "http://肥猫.net/tv"
+    },
+    {
       "name": "星河",
       "url": "http://116.196.116.76/stv"
     },
@@ -39,10 +43,6 @@
     {
       "name": "电影天堂",
       "url": "http://47.96.82.41:5188/config.json"
-    },
-    {
-      "name": "软件小哥哥",
-      "url": "http://47.96.82.41:5188/svip/svip.json"
     },
     {
       "name": "俊哥",
