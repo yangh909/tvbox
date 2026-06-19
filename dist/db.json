@@ -17,6 +17,10 @@
       "url": "http://116.196.116.76/tv"
     },
     {
+      "name": "影视仓",
+      "url": "http://www.影视仓.com"
+    },
+    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -31,6 +35,14 @@
     {
       "name": "starlink",
       "url": "http://124.223.214.31:8/api.json"
+    },
+    {
+      "name": "电影天堂",
+      "url": "http://47.96.82.41:5188/config.json"
+    },
+    {
+      "name": "软件小哥哥",
+      "url": "http://47.96.82.41:5188/svip/svip.json"
     },
     {
       "name": "俊哥",
@@ -113,6 +125,10 @@
       "url": "https://clun.top/box.json"
     },
     {
+      "name": "钵钵鸡",
+      "url": "http://47.96.82.41:3/"
+    },
+    {
       "name": "小脑斧",
       "url": "https://6492.kstore.space/xnf/xnf.json"
     },
@@ -143,6 +159,10 @@
     {
       "name": "宝盒没宝",
       "url": "https://3043.kstore.space/bhvip/bh/box.json"
+    },
+    {
+      "name": "软件小哥哥",
+      "url": "http://47.96.82.41:5188/"
     },
     {
       "name": "驸马影视",
