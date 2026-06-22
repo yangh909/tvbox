@@ -37,6 +37,10 @@
       "url": "http://47.96.82.41:5188/config.json"
     },
     {
+      "name": "软件小哥哥",
+      "url": "http://47.96.82.41:5188/svip/svip.json"
+    },
+    {
       "name": "俊哥",
       "url": "http://home.jundie.top:81/top98.json"
     },
