@@ -21,10 +21,6 @@
       "url": "http://116.196.116.76/tv"
     },
     {
-      "name": "影视仓",
-      "url": "http://www.影视仓.com"
-    },
-    {
       "name": "影视仓-备",
       "url": "https://700sjro44343.vicp.fun/vip/vip/tv.json"
     },
@@ -81,6 +77,10 @@
       "url": "https://gb.hfr1107.top/https://raw.githubusercontent.com/ediart/tvbox/refs/heads/main/T4.json"
     },
     {
+      "name": "摸鱼儿",
+      "url": "http://我不是.摸鱼儿.com"
+    },
+    {
       "name": "PG2",
       "url": "https://www.252035.xyz/p/jsm.json"
     },
@@ -91,6 +91,10 @@
     {
       "name": "南风",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json"
+    },
+    {
+      "name": "小米",
+      "url": "http://mitvbox.xyz/%E5%B0%8F%E7%B1%B3/DEMO.json"
     },
     {
       "name": "高天流云2",
@@ -107,10 +111,6 @@
     {
       "name": "钵钵鸡",
       "url": "http://47.96.82.41:3/"
-    },
-    {
-      "name": "小脑斧",
-      "url": "https://6492.kstore.space/xnf/xnf.json"
     },
     {
       "name": "高天",
