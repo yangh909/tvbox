@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "name": "260526",
+      "name": "260728",
       "url": "http://www.饭太硬.cc/tv"
     },
     {
@@ -11,6 +11,10 @@
     {
       "name": "肥猫",
       "url": "http://肥猫.net/tv"
+    },
+    {
+      "name": "盒子迷",
+      "url": "https://盒子迷.top/禁止贩卖"
     },
     {
       "name": "星河",
@@ -97,16 +101,8 @@
       "url": "https://www.252035.xyz/p/jsm.json"
     },
     {
-      "name": "老刘备",
-      "url": "https://ghfast.top/https://raw.githubusercontent.com/liu673cn/box/main/m.json"
-    },
-    {
       "name": "南风",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json"
-    },
-    {
-      "name": "高天流云2",
-      "url": "https://ghfast.top/https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json"
     },
     {
       "name": "追剧影院",
@@ -119,10 +115,6 @@
     {
       "name": "钵钵鸡",
       "url": "http://47.96.82.41:3/"
-    },
-    {
-      "name": "小脑斧",
-      "url": "https://6492.kstore.space/xnf/xnf.json"
     },
     {
       "name": "高天",
@@ -159,10 +151,6 @@
     {
       "name": "驸马影视",
       "url": "http://fmys.top/fmys.json"
-    },
-    {
-      "name": "胜寒",
-      "url": "https://ghfast.top/https://raw.githubusercontent.com/hanhan8127/TVBox/main/hanXC.json"
     },
     {
       "name": "🚀动漫频道",
@@ -217,10 +205,6 @@
       "url": "https://jihulab.com/ygbh1/box/-/raw/main/月光宝盒"
     },
     {
-      "name": "🚀香雅情线路〔多条线路〕",
-      "url": "https://ghproxy.com/raw.githubusercontent.com/gaotianliuyun/gao/master/XYQ.json"
-    },
-    {
       "name": "⚽胖鸭〔多条线路〕",
       "url": "https://agit.ai/cyl518/yl/raw/branch/master/ml.json"
     },
@@ -231,10 +215,6 @@
     {
       "name": "🐹分享者线路",
       "url": "https://agit.ai/66666/mao/raw/branch/master/00/000.m3u8"
-    },
-    {
-      "name": "🚀蜂蜜线路",
-      "url": "https://ghproxy.com/https://raw.githubusercontent.com/FongMi/CatVodSpider/main/json/config.json"
     },
     {
       "name": "😵巧技接口〔多条线路〕",
