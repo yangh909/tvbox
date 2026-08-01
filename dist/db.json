@@ -53,6 +53,10 @@
       "url": "http://47.96.82.41:5188/svip/svip.json"
     },
     {
+      "name": "俊哥",
+      "url": "http://home.jundie.top:81/top98.json"
+    },
+    {
       "name": "liucn",
       "url": "https://raw.liucn.cc/box/m.json"
     },
@@ -119,6 +123,10 @@
     {
       "name": "钵钵鸡",
       "url": "http://47.96.82.41:3/"
+    },
+    {
+      "name": "小脑斧",
+      "url": "https://6492.kstore.space/xnf/xnf.json"
     },
     {
       "name": "高天",
@@ -219,6 +227,10 @@
     {
       "name": "⚽胖鸭〔多条线路〕",
       "url": "https://agit.ai/cyl518/yl/raw/branch/master/ml.json"
+    },
+    {
+      "name": "👀影音天堂〔多条线路〕",
+      "url": "http://tvbox.vip/4k"
     },
     {
       "name": "🐹分享者线路",
