@@ -53,10 +53,6 @@
       "url": "http://47.96.82.41:5188/svip/svip.json"
     },
     {
-      "name": "俊哥",
-      "url": "http://home.jundie.top:81/top98.json"
-    },
-    {
       "name": "liucn",
       "url": "https://raw.liucn.cc/box/m.json"
     },
@@ -123,6 +119,10 @@
     {
       "name": "钵钵鸡",
       "url": "http://47.96.82.41:3/"
+    },
+    {
+      "name": "小脑斧",
+      "url": "https://6492.kstore.space/xnf/xnf.json"
     },
     {
       "name": "高天",
